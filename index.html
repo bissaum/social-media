@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Mastercell</title>
+  <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+  <script src="https://kit.fontawesome.com/2f9dcb841d.js" crossorigin="anonymous"></script>
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Montserrat, serif;
+    }
+
+    main {
+      width: 100vw;
+      overflow: hidden;
+    }
+
+    section {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      border-bottom: 1px solid #EEE;
+    }
+
+    form dl {
+      margin: 0 0 15px 0;
+    }
+
+    form dt {
+      margin: 0 25px;
+    }
+
+    form dd {
+      margin: 0 25px;
+    }
+
+    form dd.error input {
+      border: 2px solid red;
+    }
+
+    form dd.error cite {
+      display: inline-block;
+    }
+
+    form label {
+      line-height: 2;
+      font-size: 12px;
+    }
+
+    form input {
+      padding: 5px 10px;
+      font-size: 14px;
+      line-height: 1.5;
+      min-width: 250px;
+      border: 2px solid #CCC;
+      border-radius: 4px;
+    }
+
+    form button {
+      padding: 5px 10px;
+      font-size: 14px;
+      line-height: 1.5;
+      border: 2px solid #009cdc;
+      background: #009cdc;
+      color: #FFF;
+      border-radius: 4px;
+    }
+
+    form button i {
+      margin: 5px 0;
+      font-size: 22px;
+    }
+
+    form cite {
+      display: none;
+      line-height: 1;
+      font-size: 11px;
+      color: red;
+    }
+
+    #menu {
+      display: flex;
+      justify-content: space-around;
+      padding: 25px 0;
+      position: fixed;
+      z-index: 1;
+      width: 100vw;
+      background: #FAFAFA;
+      bottom: 0;
+    }
+
+    #menu li {
+      padding: 0;
+      list-style: none;
+    }
+
+    #menu li a {
+      display: inline-block;
+      text-align: center;
+      text-decoration: none;
+      color: #009cdc;
+      cursor: pointer;
+    }
+
+    #menu li a i {
+      margin-bottom: 5px;
+      font-size: 22px;
+    }
+
+    #menu li a:hover {
+      text-decoration: underline;
+    }
+
+    #logo {
+      position: absolute;
+      width: 427px;
+      max-width: 80%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .page h1 {
+      margin: 0;
+      padding: 25px 25px 0 25px;
+    }
+
+    .page p {
+      margin: 0;
+      padding: 10px 25px 25px 25px;
+      color: #666;
+    }
+
+    #contatos-post {
+      width: 180px;
+      height: 180px;
+      border: 2px solid #CCC;
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+    <ul id="menu">
+      <li>
+        <a href="#contatos">
+          <i class="fa-sharp fa-solid fa-phone"></i><br />
+          Contatos
+        </a>
+      </li>
+      <li>
+        <a href="#precos">
+          <i class="fa-sharp fa-solid fa-dollar-sign"></i><br />
+          Preços
+        </a>
+      </li>
+      <li>
+        <a href="#vitrine">
+          <i class="fa-sharp fa-solid fa-tags"></i><br />
+          Vitrine
+        </a>
+      </li>
+    </ul>
+    <section>
+      <img id="logo" />
+    </section>
+    <section class="page" id="contatos">
+      <h1>Contatos</h1>
+      <p>Gerar imagem para compartilhar:</p>
+      <form id="form-contatos">
+        <dl>
+          <dt>
+            <label for="celular-1">
+              <i class="fa-sharp fa-solid fa-phone"></i>
+              Celular 1
+            </label>
+          </dt>
+          <dd>
+            <input class="celular" id="celular-1" type="text" maxlength="13" />
+            <cite>Telefone inválido</cite>
+          </dd>
+        </dl>
+        <dl>
+          <dt>
+            <label for="celular-2">
+              <i class="fa-sharp fa-solid fa-phone"></i>
+              Celular 2
+            </label>
+          </dt>
+          <dd>
+            <input class="celular" id="celular-2" type="text" maxlength="13" />
+            <cite>Telefone inválido</cite>
+          </dd>
+        </dl>
+        <dl>
+          <dd>
+            <button type="button" id="download-post">
+              <i class="fa-solid fa-circle-user"></i><br />
+              Download post
+            </button>
+            <button type="button" id="download-story">
+              <i class="fa-solid fa-image-portrait"></i><br />
+              Download story
+            </button>
+          </dd>
+        </dl>
+        <dl>
+          <dt><label for="contatos-post">Post @ 1080 X 1080px</label></dt>
+          <dd><canvas id="contatos-post" width="1080" height="1080"></canvas></dd>
+        </dl>
+      </form>
+    </section>
+    <section class="page" id="precos">
+      <h1>Preços</h1>
+      <p>Gerar imagem para compartilhar:</p>
+    </section>
+    <section class="page" id="vitrine">
+      <h1>Vitrine</h1>
+      <p>Gerar imagem para compartilhar:</p>
+    </section>
+  </main>
+  <script>
+    const maskCelular = text => text
+      .replace(/\D/g, '')
+      .replace(/^(\d{2})(\d)/g, '$1 $2')
+      .replace(/(\d)(\d{4})$/, '$1.$2')
+
+    window.onload = () => {
+      const logo = document.querySelector('#logo')
+      logo.src = 'images/logo.png'
+
+      const menu = document.querySelectorAll('#menu a')
+      menu.forEach(item => {
+        item.onclick = event => {
+          const id = event.target.hash
+          console.log(id)
+        }
+      })
+
+      const celular = document.querySelectorAll('input.celular')
+      celular.forEach(item => {
+        item.onkeyup = event => {
+          const value = event.target.value
+          item.value = maskCelular(value)
+          const dd = event.target.parentNode
+          if (item.value?.length > 0 && item.value?.length < 13) {
+            dd.classList.add('error')
+          } else {
+            dd.classList.remove('error')
+            if (item.value?.length === 13) {
+              updatePost()
+            }
+          }
+        }
+      })
+
+      const canvasPost = document.querySelector('#contatos-post')
+
+      const updatePost = () => {
+        const contextPost = canvasPost.getContext('2d')
+        const imagePost = new Image()
+        imagePost.src = 'images/contatos-post.png'
+        imagePost.onload = () => {
+          contextPost.drawImage(imagePost, 0, 0, 1080, 1080)
+          contextPost.font = '48px Roboto'
+          contextPost.fillStyle = '#666666'
+          const celular1 = document.querySelector('#celular-1')
+          contextPost.fillText(celular1.value, 630, 915)
+          const celular2 = document.querySelector('#celular-2')
+          contextPost.fillText(celular2.value, 130, 915)
+        }
+      }
+
+      const downloadPost = document.querySelector('#download-post')
+
+      downloadPost.onclick = () => {
+        const linkPost = link = document.createElement('a')
+        linkPost.download = 'contatos-post.png'
+        linkPost.href = canvasPost.toDataURL()
+        linkPost.click()
+      }
+    }
+  </script>
+</body>
+
+</html>
