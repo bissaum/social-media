@@ -1,59 +1,31 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import './App.css';
-import Logo from './images/logo.svg';
 import Container from '@mui/material/Container';
+import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Checkbox from '@mui/material/Checkbox';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import InputAdornment from '@mui/material/InputAdornment';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Alert from '@mui/material/Alert';
+import ButtonGroup from '@mui/material/ButtonGroup';
+import Button from '@mui/material/Button';
+import CloudDownloadIcon from '@mui/icons-material/CloudDownload';
 import PrintIcon from '@mui/icons-material/Print';
 import SettingsIcon from '@mui/icons-material/Settings';
+import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
+import UpdateIcon from '@mui/icons-material/Update';
 import Navigation from './components/Navigation/Navigation.component';
-import Grid from '@mui/material/Grid';
-
-declare namespace AppTypes {
-  type Table = {
-    key: string
-    device: string
-    devicePrice: number
-    repair: string
-    repairPrice: number
-  }
-
-  type Whatsapp = {
-    key: string
-    label: string
-    value: string
-  }
-
-  type Data = {
-    contatos: {
-      whatsapp: Whatsapp[]
-      instagram: string
-    },
-    precos: {
-      validade: string
-      pagamento: {
-        pix: boolean
-        picpay: boolean
-        debito: boolean
-        credito: boolean
-        parcelamento: number
-      }
-      table: Table[]
-    }
-  }
-
-  type Inputs = 'whatsapp' | 'instagram' | 'validate' | 'device' | 'repair'
-  type Values = 'partial' | 'devicePrice' | 'repairPrice'
-  type Checkboxes = 'pix' | 'picpay' | 'debito' | 'credito'
-}
+import Canvas from './components/Canvas/Canvas.component';
+import AppTypes from './App.types';
+import AppStyles from './App.styles';
 
 function App() {
   const data: AppTypes.Data = {
@@ -61,179 +33,283 @@ function App() {
       whatsapp: [{
         key: 'primeiro-whatsapp',
         label: 'Primeiro Whatsapp',
-        value: '11 95371.6726'
+        value: '11 95371.6726',
+        valid: true
       },
       {
         key: 'segundo-whatsapp',
         label: 'Segundo Whatsapp',
-        value: '11 99165.1631'
+        value: '11 99165.1631',
+        valid: true
       }],
-      instagram: 'mast.ercell58',
+      instagram: {
+        value: 'mast.ercell59',
+        valid: true
+      }
     },
     precos: {
-      validade: '01/12/2022',
+      validade: {
+        value: '01/12/2022',
+        valid: true
+      },
       pagamento: {
         pix: true,
         picpay: true,
         debito: true,
         credito: true,
-        parcelamento: 18
+        parcelamento: {
+          value: '18',
+          valid: true
+        }
       },
-      table: [{
+      produtos: [{
         key: 'product-1',
-        device: 'iPhone 12 Pro 128GB',
-        devicePrice: 4700,
-        repair: 'Bateria',
-        repairPrice: 100
+        device: {
+          name: 'iPhone 12 Pro 128GB',
+          price: '4700',
+          valid: true
+        },
+        repair: {
+          name: 'Bateria',
+          price: '100',
+          valid: true
+        }
       },
       {
         key: 'product-2',
-        device: 'iPhone 11 Pro Max 64GB',
-        devicePrice: 4100,
-        repair: 'Bateria',
-        repairPrice: 100
+        device: {
+          name: 'iPhone 11 Pro Max 64GB',
+          price: '4100',
+          valid: true
+        },
+        repair: {
+          name: 'Bateria',
+          price: '100',
+          valid: true
+        }
       },{
         key: 'product-3',
-        device: 'iPhone 11 Pro 256GB',
-        devicePrice: 3900,
-        repair: 'Bateria',
-        repairPrice: 100
+        device: {
+          name: 'iPhone 11 Pro 256GB',
+          price: '3900',
+          valid: true
+        },
+        repair: {
+          name: 'Bateria',
+          price: '100',
+          valid: true
+        }
       },
       {
         key: 'product-4',
-        device: 'iPhone 11 128GB',
-        devicePrice: 3000,
-        repair: 'Bateria',
-        repairPrice: 100
+        device: {
+          name: 'iPhone 11 128GB',
+          price: '3000',
+          valid: true
+        },
+        repair: {
+          name: 'Bateria',
+          price: '100',
+          valid: true
+        }
       },{
         key: 'product-5',
-        device: 'iPhone 11 64GB',
-        devicePrice: 2800,
-        repair: 'Bateria',
-        repairPrice: 100
+        device: {
+          name: 'iPhone 11 64GB',
+          price: '2800',
+          valid: true
+        },
+        repair: {
+          name: 'Bateria',
+          price: '100',
+          valid: true
+        }
       },
       {
         key: 'product-6',
-        device: 'iPhone XR 128GB',
-        devicePrice: 2300,
-        repair: 'Bateria',
-        repairPrice: 100
+        device: {
+          name: 'iPhone XR 128GB',
+          price: '2300',
+          valid: true
+        },
+        repair: {
+          name: 'Bateria',
+          price: '100',
+          valid: true
+        }
       },{
         key: 'product-7',
-        device: 'iPhone XR 64GB',
-        devicePrice: 2150,
-        repair: 'Bateria',
-        repairPrice: 100
+        device: {
+          name: 'iPhone XR 64GB',
+          price: '2150',
+          valid: true
+        },
+        repair: {
+          name: 'Bateria',
+          price: '100',
+          valid: true
+        }
       },
       {
         key: 'product-8',
-        device: 'iPhone 8 Plus 64GB',
-        devicePrice: 1800,
-        repair: 'Bateria',
-        repairPrice: 100
+        device: {
+          name: 'iPhone 8 Plus 64GB',
+          price: '1800',
+          valid: true
+        },
+        repair: {
+          name: 'Bateria',
+          price: '100',
+          valid: true
+        }
       },{
         key: 'product-9',
-        device: 'iPhone 8 256GB',
-        devicePrice: 1700,
-        repair: 'Bateria',
-        repairPrice: 100
+        device: {
+          name: 'iPhone 8 256GB',
+          price: '1700',
+          valid: true
+        },
+        repair: {
+          name: 'Bateria',
+          price: '100',
+          valid: true
+        }
       },
       {
         key: 'product-10',
-        device: 'iPhone 8 64GB',
-        devicePrice: 1600,
-        repair: 'Bateria',
-        repairPrice: 100
+        device: {
+          name: 'iPhone 8 64GB',
+          price: '1600',
+          valid: true
+        },
+        repair: {
+          name: 'Bateria',
+          price: '100',
+          valid: true
+        }
       },{
         key: 'product-11',
-        device: 'iPhone XS Max 256GB',
-        devicePrice: 2900,
-        repair: 'Bateria',
-        repairPrice: 100
+        device: {
+          name: 'iPhone XS Max 256GB',
+          price: '2900',
+          valid: true
+        },
+        repair: {
+          name: 'Bateria',
+          price: '100',
+          valid: true
+        }
       },
       {
         key: 'product-12',
-        device: 'iPhone X 64GB',
-        devicePrice: 2100,
-        repair: 'Bateria',
-        repairPrice: 100
+        device: {
+          name: 'iPhone X 64GB',
+          price: '2100',
+          valid: true
+        },
+        repair: {
+          name: 'Bateria',
+          price: '100',
+          valid: true
+        }
       }]
     }
   }
 
   const [whatsapp, setWhatsapp] = useState<AppTypes.Whatsapp[]>(data.contatos.whatsapp)
-  const [instagram, setInstagram] = useState<string>(data.contatos.instagram)
+  const [instagram, setInstagram] = useState<AppTypes.Input>(data.contatos.instagram)
 
   const [pix, setPix] = useState<boolean>(data.precos.pagamento.pix)
   const [picPay, setPicPay] = useState<boolean>(data.precos.pagamento.picpay)
   const [debito, setDebito] = useState<boolean>(data.precos.pagamento.debito)
   const [credito, setCredito] = useState<boolean>(data.precos.pagamento.credito)
-  const [partial, setPartial] = useState<number>(data.precos.pagamento.parcelamento)
+  const [partial, setPartial] = useState<AppTypes.Input>(data.precos.pagamento.parcelamento)
 
-  const [validate, setValidate] = useState<string>(data.precos.validade)
-  const [table, setTable] = useState<AppTypes.Table[]>(data.precos.table)
+  const [validate, setValidate] = useState<AppTypes.Input>(data.precos.validade)
+  const [table, setTable] = useState<AppTypes.Products[]>(data.precos.produtos)
+
+  const [tabContact, setTabContact] = useState('validation')
+  const changeTabContact = (_event: React.SyntheticEvent, newTab: AppTypes.Tabs) => setTabContact(newTab)
+
+  const maskNumeric = (value: string): string => value.replace(/\D/g, '')
+  const validNumeric = (value: string): boolean => (+value > 0)
+
+  const maskPhone = (phone: string): string => maskNumeric(phone).replace(/(\d{2})(\d{5})(\d{4})/, '$1 $2.$3')
+  const validPhone = (phone: string): boolean => (+phone[3] === 9 && phone?.length === 13)
+
+  const maskDate = (date: string): string => maskNumeric(date).replace(/(\d{2})(\d{2})(\d{4})/, '$1/$2/$3')
+  const validDate = (date: string): boolean => {
+    const d = +date.slice(0, 2)
+    const m = +date.slice(3, 5)
+    const y = +date.slice(6, 10)
+    return (d > 0 && d < 32) && (m > 0 && m < 13) && (y > new Date().getFullYear())
+  }
 
   const changeInput = (value: string, name: AppTypes.Inputs, index?: number) => {
+    const newWhatsapp = whatsapp
+    const newTable = table
+
+    let newPartial = partial
+    let newInstagram = instagram
+    let newValidate = validate
+
     switch (name) {
       case 'whatsapp':
         if (index) {
-          const newWhatsapp = whatsapp
-          newWhatsapp[index].value = value;
-          setWhatsapp(newWhatsapp)
+          newWhatsapp[index-1].value = maskPhone(value)
+          newWhatsapp[index-1].valid = validPhone(value)
         }
         break;
 
       case 'instagram':
-        setInstagram(value)
+        newInstagram = { value, valid: value?.length > 3 }
         break;
 
       case 'validate':
-        setValidate(value)
+        newValidate = { value: maskDate(value), valid: validDate(value) }
         break;
 
       case 'repair':
         if (index) {
-          const newTable = table
-          table[index].repair = value;
-          setTable(newTable)
+          table[index-1].repair.name = value;
+          table[index-1].repair.valid = (table[index-1].repair.name?.length > 3 && +table[index-1].repair.price > 100)
         }
         break;
 
       case 'device':
         if (index) {
-          const newTable = table
-          table[index].device = value;
-          setTable(newTable)
+          table[index-1].device.name = value;
+          table[index-1].device.valid = (table[index-1].device.name?.length > 3 && +table[index-1].device.price > 30)
         }
         break;
-    }
-  }
 
-  const changeValue = (value: number, name: AppTypes.Values, index?: number) => {
-    switch (name) {
       case 'partial':
-        setPartial(value)
+        newPartial = { value: maskNumeric(value), valid: validNumeric(value) }
         break;
 
       case 'repairPrice':
         if (index) {
-          const newTable = table
-          table[index].repairPrice = value;
-          setTable(newTable)
+          table[index-1].repair.price = maskNumeric(value)
+          table[index-1].repair.valid = validNumeric(value)
         }
         break;
 
       case 'devicePrice':
         if (index) {
-          const newTable = table
-          table[index].devicePrice = value;
-          setTable(newTable)
+          table[index-1].device.price = maskNumeric(value)
+          table[index-1].device.valid = validNumeric(value)
         }
         break;
     }
+
+    setWhatsapp(newWhatsapp)
+    setInstagram(newInstagram)
+    setValidate(newValidate)
+    setPartial(newPartial)
+    setTable(newTable)
   }
 
-  const changeCheckbox = (name: AppTypes.Checkboxes, index?: number) => {
+  const changeCheckbox = (name: AppTypes.Checks) => {
     switch (name) {
       case 'pix':
         setPix(!pix)
@@ -253,6 +329,21 @@ function App() {
     }
   }
 
+  const printContacts = () => {
+    return whatsapp.map(item => item.valid).includes(false) || !instagram.valid
+  }
+
+  const downloadContacts = (type: 'post' | 'story') => {
+    switch (type) {
+      case 'post':
+        console.log('download post')
+      break;
+      case 'story':
+        console.log('download story')
+      break;
+    }
+  }
+
   return (
     <main>
       <section id="main">
@@ -261,7 +352,7 @@ function App() {
             { key: 'configurar', label: 'Configurar', icon: <SettingsIcon /> },
             { key: 'imprimir', label: 'Imprimir', icon: <PrintIcon /> }
           ]} />
-          <img id="logo" src={Logo} alt="Mastercell" />
+          <img id="logo" src="logo.svg" alt="Mastercell" />
         </Container>
       </section>
       <section id="configurar">
@@ -269,25 +360,27 @@ function App() {
           <Typography variant="h5">
             Configurar
           </Typography>
-          <Typography sx={{ paddingTop: '24px' }}>
+          <Typography sx={AppStyles.paragraph}>
             Informe os contatos:
           </Typography>
-          <Grid container sx={{ padding: '24px 0' }} spacing={2}>
+          <Grid container sx={AppStyles.grid} spacing={2}>
             {whatsapp.map((item, index) => (
               <Grid item xs={12} md={4} key={item.key}>
-                <TextField sx={{ width: '100%' }} id={item.key} label={item.label} defaultValue={whatsapp[index].value} onChange={e => changeInput(e.target.value, 'whatsapp', index)} />
+                <TextField sx={AppStyles.textfield} inputProps={{
+                  maxLength: 13
+                }} id={item.key} label={item.label} defaultValue={whatsapp[index].value} onChange={e => changeInput(e.target.value, 'whatsapp', index+1)} />
               </Grid>
             ))}
             <Grid item xs={12} md={4}>
-              <TextField sx={{ width: '100%' }} id="conta-instagram" label="Conta instagram" value={instagram} onChange={e => changeInput(e.target.value, 'instagram')} InputProps={{
+              <TextField sx={AppStyles.textfield} id="conta-instagram" label="Conta instagram" value={instagram.value} onChange={e => changeInput(e.target.value, 'instagram')} InputProps={{
                 startAdornment: <InputAdornment position="start">@</InputAdornment>,
               }} />
             </Grid>
           </Grid>
-          <Typography sx={{ paddingTop: '24px' }}>
+          <Typography sx={AppStyles.paragraph}>
             Informe as formas de pagamento:
           </Typography>
-          <Grid container sx={{ padding: '24px 0' }} spacing={2}>
+          <Grid container sx={AppStyles.grid} spacing={2}>
             <Grid item xs={12} md={3}>
               <FormControlLabel control={
                 <Checkbox id="pix" size="small" checked={pix} onChange={() => changeCheckbox('pix')} />
@@ -309,36 +402,36 @@ function App() {
               } label="Aceita Crédito?" />
             </Grid>
             <Grid item xs={12} md={6}>
-              <TextField sx={{ width: '100%' }} id="partial" label="Parcela em até" value={partial} onChange={e => changeValue(+e.target.value, 'partial')}InputProps={{
+              <TextField sx={AppStyles.textfield} id="partial" label="Parcela em até" value={partial.value} onChange={e => changeInput(e.target.value, 'partial')}InputProps={{
                 endAdornment: <InputAdornment position="end">x sem juros</InputAdornment>,
               }} />
             </Grid>
             <Grid item xs={12} md={6}>
-              <TextField sx={{ width: '100%' }} id="validate" label="Preços válidos até" value={validate} onChange={e => changeInput(e.target.value, 'validate')} />
+              <TextField sx={AppStyles.textfield} id="validate" label="Preços válidos até" value={validate.value} onChange={e => changeInput(e.target.value, 'validate')} />
             </Grid>
           </Grid>
           {table.map((item, index) => (
             <Box key={item.key}>
-              <Typography sx={{ paddingTop: '24px' }}>
+              <Typography sx={AppStyles.paragraph}>
                 Informe o aparelho {index+1}
                 {` de ${table?.length}`}:
               </Typography>
-              <Grid container sx={{ padding: '24px 0' }} spacing={2}>
+              <Grid container sx={AppStyles.grid} spacing={2}>
                 <Grid item xs={12} md={4}>
-                  <TextField sx={{ width: '100%' }} id="device-price" label="Valor venda" defaultValue={table[index].devicePrice} onChange={e => changeValue(+e.target.value, 'devicePrice', index)} InputProps={{
+                  <TextField sx={AppStyles.textfield} id="device-price" label="Valor venda" defaultValue={table[index].device.price} onChange={e => changeInput(e.target.value, 'devicePrice', index+1)} InputProps={{
                     startAdornment: <InputAdornment position="start">R$</InputAdornment>,
                   }} />
                 </Grid>
                 <Grid item xs={12} md={8}>
-                  <TextField sx={{ width: '100%' }} id="device" label="Aparelho" defaultValue={table[index].device} onChange={e => changeInput(e.target.value, 'device', index)} />
+                  <TextField sx={AppStyles.textfield} id="device" label="Aparelho" defaultValue={table[index].device.name} onChange={e => changeInput(e.target.value, 'device', index+1)} />
                 </Grid>
                 <Grid item xs={12} md={4}>
-                  <TextField sx={{ width: '100%' }} id="repair-price" label="Valor conserto" defaultValue={table[index].repairPrice} onChange={e => changeValue(+e.target.value, 'repairPrice', index)} InputProps={{
+                  <TextField sx={AppStyles.textfield} id="repair-price" label="Valor conserto" defaultValue={table[index].repair.price} onChange={e => changeInput(e.target.value, 'repairPrice', index+1)} InputProps={{
                     startAdornment: <InputAdornment position="start">R$</InputAdornment>,
                   }} />
                 </Grid>
                 <Grid item xs={12} md={8}>
-                  <TextField sx={{ width: '100%' }} id="repair" label="Conserto" defaultValue={table[index].repair} onChange={e => changeInput(e.target.value, 'repair', index)} />
+                  <TextField sx={AppStyles.textfield} id="repair" label="Conserto" defaultValue={table[index].repair.name} onChange={e => changeInput(e.target.value, 'repair', index+1)} />
                 </Grid>
               </Grid>
             </Box>
@@ -350,6 +443,84 @@ function App() {
           <Typography variant="h5">
             Imprimir
           </Typography>
+          <Grid container sx={AppStyles.grid} spacing={2}>
+            <Grid item xs={12}>
+              <Typography variant="h6">
+                Informações de contato
+              </Typography>
+              <Tabs
+                value={tabContact}
+                onChange={changeTabContact}
+                sx={AppStyles.tabs}
+              >
+                <Tab value="validation" label="Validação" />
+                <Tab value="post" label="Post" />
+                <Tab value="story" label="Story" />
+              </Tabs>
+            </Grid>
+            {tabContact === 'validation' && <Grid item xs={12}>
+              <Box sx={AppStyles.box}>
+                <ButtonGroup sx={AppStyles.buttonGroup} variant="contained">
+                  <Button size="large" variant="outlined" disabled={printContacts()} onClick={() => setTabContact('post')} startIcon={<PhotoCameraIcon />}>
+                    Gerar Post
+                  </Button>
+                  <Button size="large" variant="outlined" disabled={printContacts()} onClick={() => setTabContact('story')} startIcon={<UpdateIcon />}>
+                    Gerar Story
+                  </Button>
+                </ButtonGroup>
+              </Box>
+              {whatsapp.map((item, index) => <Alert key={item.key} sx={AppStyles.alert} severity={
+                item.valid
+                ? 'success'
+                : 'error'
+              }>{
+                item.valid
+                ? `${index+1}º Whatsapp está preenchido`
+                : `Falta preencher o ${index+1}º whatsapp`
+              }</Alert>)}
+              <Alert sx={AppStyles.alert} severity={
+                instagram.valid
+                ? 'success'
+                : 'error'
+              }>{
+                instagram.valid
+                ? 'Conta do Instagram está preenchida'
+                : 'Falta preencher o conta do Instagram'
+              }</Alert>
+            </Grid>}
+            {tabContact === 'post' && <Grid item xs={12}>
+              <Box sx={AppStyles.box}>
+                <Button size="large" variant="outlined" disabled={printContacts()} onClick={() => downloadContacts('post')} startIcon={<CloudDownloadIcon />}>
+                  Download Post
+                </Button>
+              </Box>
+              <Canvas size="post" background="contatos-post.png" callback={context => {
+                context.font = '48px Arial'
+                context.fillStyle = '#666666'
+                context.fillText(whatsapp[0].value, 630, 915)
+                context.fillText(whatsapp[1].value, 130, 915)
+                context.font = '32px Arial'
+                context.fillStyle = '#999999'
+                context.fillText(`@${instagram.value}`, 100, 1021)
+              }} />
+            </Grid>}
+            {tabContact === 'story' && <Grid item xs={12}>
+              <Box sx={AppStyles.box}>
+                <Button size="large" variant="outlined" disabled={printContacts()} onClick={() => downloadContacts('story')} startIcon={<CloudDownloadIcon />}>
+                  Download Story
+                </Button>
+              </Box>
+              <Canvas size="story" background="contatos-story.png" callback={context => {
+                context.font = '48px Arial'
+                context.fillStyle = '#666666'
+                context.fillText(whatsapp[0].value, 630, 1635)
+                context.fillText(whatsapp[1].value, 130, 1635)
+                context.font = '32px Arial'
+                context.fillStyle = '#999999'
+                context.fillText(`@${instagram.value}`, 130, 1760)
+              }} />
+            </Grid>}
+          </Grid>
         </Container>
       </section>
     </main>

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
@@ -17,14 +17,14 @@ declare namespace NavigationTypes {
 }
 
 export default function Navigation(props: NavigationTypes.Props) {
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = useState(0)
 
   return (
     <Box sx={NavigationStyles.box}>
       {props?.items && <BottomNavigation
         showLabels
         value={value}
-        onChange={(event, newValue) => {
+        onChange={(_event, newValue) => {
           const item = props.items[newValue];
           window.location.href = `/#${item.key}`;
           setValue(newValue);
@@ -33,5 +33,5 @@ export default function Navigation(props: NavigationTypes.Props) {
         {props.items.map(item => <BottomNavigationAction key={item.key} label={item.label} icon={item.icon} />)}
       </BottomNavigation>}
     </Box>
-  );
+  )
 }
